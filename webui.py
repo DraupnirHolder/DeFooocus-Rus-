@@ -1,3 +1,5 @@
+--- START OF FILE webui.py ---
+
 import gradio as gr
 import random
 import os
@@ -546,7 +548,7 @@ with shared.gradio_root:
                         scheduler_name = gr.Dropdown(label='Scheduler', choices=flags.scheduler_list,
                                                      value=modules.config.default_scheduler)
                         '''
-                        generate_image_grid = gr.Checkbox(label='Generate Image Grid for Each Batch',
+                                                generate_image_grid = gr.Checkbox(label='Generate Image Grid for Each Batch',
                                                           info='(Experimental) This may cause performance problems on some computers and certain internet conditions.',
                                                           value=False)
 
@@ -689,7 +691,9 @@ with shared.gradio_root:
                 model_refresh.click(model_refresh_clicked, [],  model_refresh_output + lora_ctrls,
                                     queue=False, show_progress=False)
 
-                
+                #  Add a new slider for manual adjustment of sampling steps
+                sampling_steps = gr.Slider(label='Sampling Steps', minimum=1, maximum=100, step=1, value=50, info='Number of sampling steps to perform')
+
         state_is_generating = gr.State(False)
 
         load_data_outputs = [advanced_checkbox, image_number, prompt, negative_prompt, style_selections,
@@ -697,7 +701,7 @@ with shared.gradio_root:
                              overwrite_width, overwrite_height, guidance_scale, sharpness, adm_scaler_positive,
                              adm_scaler_negative, adm_scaler_end, refiner_swap_method, adaptive_cfg, base_model,
                              refiner_model, refiner_switch, sampler_name, scheduler_name, seed_random, image_seed,
-                             generate_button, load_parameter_button] + freeu_ctrls + lora_ctrls
+                             generate_button, load_parameter_button] + freeu_ctrls + lora_ctrls + [sampling_steps]
 
         if not args_manager.args.disable_preset_selection:
             def preset_selection_change(preset, is_generating):
@@ -790,7 +794,7 @@ with shared.gradio_root:
         ctrls += [debugging_cn_preprocessor, skipping_cn_preprocessor, canny_low_threshold, canny_high_threshold]
         ctrls += [refiner_swap_method, controlnet_softness]
         ctrls += freeu_ctrls
-        ctrls += inpaint_ctrls
+        ctrls += inpaint_ctrls + [sampling_steps]
 
         if not args_manager.args.disable_metadata:
             ctrls += [save_metadata_to_images, metadata_scheme]
