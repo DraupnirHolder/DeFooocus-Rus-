@@ -229,3 +229,8 @@
 footer {
     visibility: hidden
 }
+
+/* Стили для слайдера "Sampling Steps" */
+.sampling-steps-slider {
+    margin-top: 10px;
+}
