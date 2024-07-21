@@ -546,7 +546,7 @@ with shared.gradio_root:
                         scheduler_name = gr.Dropdown(label='Scheduler', choices=flags.scheduler_list,
                                                      value=modules.config.default_scheduler)
                         '''
-                                                generate_image_grid = gr.Checkbox(label='Generate Image Grid for Each Batch',
+                        generate_image_grid = gr.Checkbox(label='Generate Image Grid for Each Batch',
                                                           info='(Experimental) This may cause performance problems on some computers and certain internet conditions.',
                                                           value=False)
 
