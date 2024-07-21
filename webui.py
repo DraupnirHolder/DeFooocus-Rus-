@@ -1,5 +1,3 @@
---- START OF FILE webui.py ---
-
 import gradio as gr
 import random
 import os
